@@ -1,0 +1,6 @@
+commit_hash,fecha,tipo_de_issue
+a066af57769041d809ecd9ccfdc49828b6e4979b,2025-06-07 14:37:26 -0500,merge[#2]: Fusionar rama feature-git-hook-commit-msg
+2badba24e6337acd8d0bd3623f259b69fd5f85b7,2025-06-07 14:16:43 -0500,feat[#2]: Implementar git hook commit-msg
+dd7f0d82c20723421cad478417c7fbbeac2290e4,2025-06-07 13:34:38 -0500,merge[#1]: Fusionar rama feature-estructura
+c53fe9c8b64135b3f7241c423c8e3750053cf4c6,2025-06-07 12:59:43 -0500,feat[#1]: Inicializar repositorio y estructura
+2f1a006a839a69846ad239df3e5848772a4ad9f1,2025-06-06 18:13:21 -0500,feat[#0]: Agregar plantilla de Historia Usuario
