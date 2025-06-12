@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Generar kanban.md desde issues.json
+# Generar kanban.md desde issues.json con transiciones de estado
 OUTPUT_ARCHIVO="docs/kanban.md"
 ISSUES_ARCHIVO="issues.json"
 
@@ -18,14 +18,14 @@ cat > "$OUTPUT_ARCHIVO" << 'EOF'
 EOF
 
 # Agregar issues abiertos a To Do
-jq -r '.[] | select(.state == "open") | "- Issue #\(.id): \(.title) (Owner: \(.owner))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
+jq -r '.[] | select(.state == "open") | "- Issue #\(.id): \(.title) (Owner: \(.owner), Creado: \(.created_at))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
 
 # Agregar sección In Progress
 echo -e "\n## In Progress" >> "$OUTPUT_ARCHIVO"
-jq -r '.[] | select(.state == "in_progress") | "- Issue #\(.id): \(.title) (Owner: \(.owner))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
+jq -r '.[] | select(.state == "in_progress") | "- Issue #\(.id): \(.title) (Owner: \(.owner), Creado: \(.created_at))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
 
 # Agregar sección Done
 echo -e "\n## Done" >> "$OUTPUT_ARCHIVO"
-jq -r '.[] | select(.state == "closed") | "- Issue #\(.id): \(.title) (Owner: \(.owner))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
+jq -r '.[] | select(.state == "closed") | "- Issue #\(.id): \(.title) (Owner: \(.owner), Cerrado: \(.closed_at))"' "$ISSUES_ARCHIVO" >> "$OUTPUT_ARCHIVO"
 
 echo "Generado $OUTPUT_ARCHIVO"
