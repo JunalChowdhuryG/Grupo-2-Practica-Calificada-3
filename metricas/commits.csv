@@ -1,6 +1,20 @@
 commit_hash,fecha,tipo_de_issue
+e119f28cbd70ab1b2acf68c9d2771ecc4d9a2d03,2025-06-12 13:21:53 -0500,update[#17]: Mejorar generar_kanban.sh para transiciones de estado
+c9053a936cd3676e3a73ea388cf6a28a5277d7d8,2025-06-09 23:23:29 -0500,docs[#13]: Agregar README del sprint 1
+72d770a0f4db023d9a67a1b66c7f6a8794ae6e29,2025-06-08 20:59:42 -0500,merge[#5]: Fusionar rama feature-issues-json a develop
+678e48ac1b288e3fc176684bd6494e43f570ab3c,2025-06-08 20:35:18 -0500,feat[#5]: Agregar issues.json con los 5 primeros issues
+dd87d789514f5e39fef2799c4af14327b12b509a,2025-06-08 18:03:57 -0500,merge[#3]: Fusionar rama feature-generar-kanban a develop
+94f9001fc2ea969d94525d8cb7ca9a7961bf3189,2025-06-08 17:21:48 -0500,test[#3]: Agregar test basico para el script generar_kanban.sh
+cb7f5f75efb7939aea565b3afa8f2df24d10e202,2025-06-08 17:14:02 -0500,merge[#4]: Fusionar rama feature-calcular-metricas a develop
+59988ada1240c25a1c8f1f46b6b293de9f75b41c,2025-06-08 11:01:03 -0500,docs[#4]: Crear archivo commits.csv a partir de calcular_metricas.py
+1173ee8b23f27d7e236ff120d004986cdd4f35b3,2025-06-08 10:59:18 -0500,feat[#4]: Crear calcular_metricas.py con funciones registrar_git_log y escribir_csv
 a066af57769041d809ecd9ccfdc49828b6e4979b,2025-06-07 14:37:26 -0500,merge[#2]: Fusionar rama feature-git-hook-commit-msg
 2badba24e6337acd8d0bd3623f259b69fd5f85b7,2025-06-07 14:16:43 -0500,feat[#2]: Implementar git hook commit-msg
 dd7f0d82c20723421cad478417c7fbbeac2290e4,2025-06-07 13:34:38 -0500,merge[#1]: Fusionar rama feature-estructura
+351d037478de2551d5d6b11b622fd8ffcbb5de68,2025-06-07 17:26:34 -0500,docs[#3]: Generar tablero kanban.md
+b68afb549522c0532e40049d5c48596937f48f11,2025-06-07 17:25:52 -0500,feat[#3]: Generar script generar_kanban.sh
+109bbe5b0815b7c54919ea731574fb031083afda,2025-06-07 14:37:26 -0500,feat[#2]: Implementar git hook commit-msg
+6fafd673b93474226c3abc1716751b286c2b9692,2025-06-07 14:16:43 -0500,feat[#2]: Implementar git hook commit-msg
+1955a26e8da2168093ad54e5d007279f3200e6b2,2025-06-07 13:34:38 -0500,feat[#1]: Inicializar repositorio y estructura
 c53fe9c8b64135b3f7241c423c8e3750053cf4c6,2025-06-07 12:59:43 -0500,feat[#1]: Inicializar repositorio y estructura
 2f1a006a839a69846ad239df3e5848772a4ad9f1,2025-06-06 18:13:21 -0500,feat[#0]: Agregar plantilla de Historia Usuario
