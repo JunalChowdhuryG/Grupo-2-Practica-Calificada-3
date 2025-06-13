@@ -33,10 +33,44 @@
   },
   {
     "id": 5,
-    "title": "Crear datos inicialesde issues.json",
-    "state": "open",
+    "title": "Crear datos iniciales de issues.json",
+    "state": "closed",
     "created_at": "2025-06-07T12:31:00",
+    "closed_at": "2025-06-08T17:36:00",
+    "owner": "janio"
+  },
+  {
+    "id": 6,
+    "title": "Implementar calculo de Lead Time en calcular_metrics.py",
+    "state": "closed",
+    "created_at": "2025-06-11T20:00:00",
+    "closed_at": "2025-06-12T21:47:00",
+    "owner": "junal"
+  },
+  {
+    "id": 7,
+    "title": "Generar gráfico Burn-Down en ASCII",
+    "state": "open",
+    "created_at": "2025-06-11T20:05:00",
     "closed_at": "",
     "owner": "janio"
+  },
+  {
+    "id": 8,
+    "title": "Mejorar generar_kanban.sh para transiciones de estado",
+    "state": "closed",
+    "created_at": "2025-06-11T20:11:00",
+    "closed_at": "2025-06-12T20:56:00",
+    "owner": "andres"
+  },
+  {
+    "id": 9,
+    "title": "Agregar pruebas unitarias para calcular_metrics.py",
+    "state": "open",
+    "created_at": "2025-06-11T21:03:00",
+    "closed_at": "",
+    "owner": "andres"
   }
+
+
 ]
