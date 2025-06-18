@@ -1,0 +1,6 @@
+From: devops@local
+To: junal@local
+Subject: Retraso en issue #4
+
+Hola junal, 
+El issue #4 lleva un lead time de 89.12 horas, superior al umbral de 72 horas. Por favor, revisar estado.
