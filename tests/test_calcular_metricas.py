@@ -9,23 +9,22 @@ from src.calcular_metricas import registrar_git_log, escribir_csv, calcular_lead
 # Test 1: Mock de simulacion de git log 
 @patch("subprocess.run")
 def test_registrar_git_log_mock(mock_run):
-    # definimos una salida simulada de git log
-    mock_run.return_value.stdout = "abc123|2025-06-12 10:00:00 |feat[#1]: mensaje de prueba"
+    # Fecha valida con zona horaria
+    mock_run.return_value.stdout = "abc123|2025-06-12T10:00:00+00:00|feat[#1]: mensaje de prueba"
     mock_run.return_value.returncode = 0
 
     commits = registrar_git_log()
-    # validamos que se capturo la entrada que definimos
     assert len(commits) == 1
     assert commits[0][0] == "abc123"
-    assert "mensaje de prueba" in commits[0][2]
-
+    assert commits[0][2] == "feat[#1]" 
+    assert commits[0][3] == 0
 
 # Test 2: Probar escribir_csv con datos simulados
 def test_escribir_csv(tmp_path):
     # datos simulados de commits
     dummy_commits = [
-        ("abc123", "2025-06-12 10:00:00 ", "fix[#2]: error corregido"),
-        ("def456", "2025-06-13 11:00:00 ", "feat[#3]: nueva funcionalidad")
+        ("abc123", "2025-06-12T10:00:00+00:00", "fix[#2]: error corregido", 0),
+        ("def456", "2025-06-13T11:00:00+00:00", "feat[#3]: nueva funcionalidad", 1)
     ]
     output_file = tmp_path / "commits.csv"
     escribir_csv(dummy_commits, output_file)
@@ -33,9 +32,9 @@ def test_escribir_csv(tmp_path):
     # validamos el contenido del archivo generado
     with open(output_file, newline='') as f:
         reader = list(csv.reader(f))
-        assert reader[0] == ['commit_hash', 'fecha', 'tipo_de_issue']
-        assert reader[1] == list(dummy_commits[0])
-        assert reader[2] == list(dummy_commits[1])
+        assert reader[0] == ['commit_hash', 'fecha', 'tipo_de_issue', 'dia_desde_inicio']
+        assert reader[1] == [str(x) for x in dummy_commits[0]]
+        assert reader[2] == [str(x) for x in dummy_commits[1]]
 
 
 # Test 3: calcular_lead_time con un issue cerrado
