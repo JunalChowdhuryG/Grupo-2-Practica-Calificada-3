@@ -6,3 +6,4 @@ Pygments==2.19.1
 pytest==8.4.0
 tomli==2.2.1
 typing_extensions==4.14.0
+pytest-cov==6.2.1
