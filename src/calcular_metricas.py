@@ -2,7 +2,7 @@ import subprocess
 import csv
 import json
 from datetime import datetime
-
+import re
 
 # funcion que captura el historial de commits de un repositorio git
 def registrar_git_log():
@@ -13,9 +13,16 @@ def registrar_git_log():
             capture_output=True, text=True, check=True
         )
         commits = []
+        primera_fecha = None
         for line in historial.stdout.splitlines():
             commit_hash, date, message = line.split('|', 2)
-            commits.append((commit_hash, date, message))
+            fecha_commit = datetime.fromisoformat(date.replace('Z', '+00:00'))
+            if primera_fecha is None:
+                primera_fecha = fecha_commit
+            dia_desde_inicio = (fecha_commit - primera_fecha).days
+            match = re.match(r'^(feat|fix|merge|docs|update|test|refactor)\[#(\d+)\]', message)
+            tipo = match.group(1) + f"[#{match.group(2)}]" if match else message
+            commits.append((commit_hash, date, tipo, dia_desde_inicio))
         return commits
     except subprocess.CalledProcessError as e:
         print(f"error al ejecutar el comando git log: {e}")
@@ -28,7 +35,7 @@ def escribir_csv(commits, output_file='metricas/commits.csv'):
     try:
         with open(output_file, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['commit_hash', 'fecha', 'tipo_de_issue'])
+            writer.writerow(['commit_hash', 'fecha', 'tipo_de_issue','dia_desde_inicio'])
             for commit in commits:
                 writer.writerow(commit)
     except IOError as e:
