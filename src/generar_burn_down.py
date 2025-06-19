@@ -7,7 +7,7 @@ def generar_burn_down(issues='issues.json', output='reports/burn_down.txt'):
         with open(issues, 'r') as f:
             issues = json.load(f)
         issues_totales = len(issues)
-        # Verificando que hayan issues
+        # Verificando que existan issues
         if issues_totales == 0:
             return
         # Extrae las fechas de creacion y cierre de los issues
@@ -20,7 +20,7 @@ def generar_burn_down(issues='issues.json', output='reports/burn_down.txt'):
         dias = (fecha_final - fecha_inicial).days + 1
         # Generar el grafico de burndown
         # Por cada dia contar los issues abiertos y cerrados
-        # Issue abierto: █ Issue cerrado: -
+        # Issue abierto: [|] Issue cerrado: -
         with open(output, 'w') as f:
             for dia in range(dias):
                 fecha_actual = fecha_inicial + timedelta(days=dia)
@@ -35,7 +35,7 @@ def generar_burn_down(issues='issues.json', output='reports/burn_down.txt'):
                                 (issue['state'] == 'open' or 
                                  (issue['closed_at'] and datetime.fromisoformat(issue['closed_at']) > final_del_dia)))
                 # Barra proporcional al total acumulado
-                bars = '█' * issues_abiertas + '─' * (issues_creadas - issues_abiertas)
+                bars = '[|]' * issues_abiertas + '─' * (issues_creadas - issues_abiertas)
                 f.write(f"[{fecha_actual.strftime('%d-%m-%Y')}] {bars} ({issues_abiertas}/{issues_creadas})\n")
     except (IOError, json.JSONDecodeError, ValueError) as e:
         print(f"Error generando burn-down : {e}")
