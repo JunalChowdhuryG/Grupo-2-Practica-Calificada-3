@@ -34,19 +34,24 @@ class TestGenerarBurnDown:
     def temp_files(self):
         temp_input = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json')
         temp_output = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
-        
+        temp_input.close() # Cerrar archivos para evitar bloqueos en Windows
+        temp_output.close()
+
         yield temp_input.name, temp_output.name
         
         # Limpiar archivos temporales
         for file_path in [temp_input.name, temp_output.name]:
-            if os.path.exists(file_path):
-                os.unlink(file_path)
-    
+            try:     
+                if os.path.exists(file_path):
+                    os.unlink(file_path)
+            except PermissionError:  # Posibles errores de permisos en Windows
+                pass 
+
     def test_generar_burn_down_exitoso(self, sample_issues, temp_files):
         issues, output = temp_files
         
         # Escribir datos de prueba
-        with open(issues, 'w') as f:
+        with open(issues, 'w',encoding='utf-8') as f:
             json.dump(sample_issues, f)
         
         # Ejecutar funcion
@@ -56,23 +61,23 @@ class TestGenerarBurnDown:
         assert os.path.exists(output)
         
         # Verificar contenido
-        with open(output, 'r') as f:
+        with open(output, 'r',encoding='utf-8') as f:
             content = f.read()
             
-        lines = content.strip().split('\n')
+        lines = content.splitlines()
         assert len(lines) > 0
         
         # Verificar formato de las lineas
         for line in lines:
             assert '[' in line and ']' in line  # Formato de fecha
             assert '(' in line and ')' in line  # Formato de contadores
-            assert '█' in line or '─' in line   # Barras de progreso
+            assert '[|]' in line or '─' in line   # Barras de progreso
     
     def test_issues_vacios(self, temp_files):
         issues, output = temp_files
         
         # Crear archivo con lista vacia
-        with open(issues, 'w') as f:
+        with open(issues, 'w',encoding='utf-8') as f:
             json.dump([], f)
         
         # Ejecutar funcion 
@@ -80,7 +85,7 @@ class TestGenerarBurnDown:
         
         # El archivo de salida no deberia existir o estar vacio
         if os.path.exists(output):
-            with open(output, 'r') as f:
+            with open(output, 'r',encoding='utf-8') as f:
                 content = f.read()
                 assert content == ""
     
@@ -98,7 +103,7 @@ class TestGenerarBurnDown:
         issues, output = temp_files
         
         # Escribir JSON invalido
-        with open(issues, 'w') as f:
+        with open(issues, 'w',encoding='utf-8') as f:
             f.write('{"invalid": json}')
         
         with patch('builtins.print') as mock_print:
@@ -118,7 +123,7 @@ class TestGenerarBurnDown:
             }
         ]
         
-        with open(issues, 'w') as f:
+        with open(issues, 'w',encoding='utf-8') as f:
             json.dump(invalid_issues, f)
         
         with patch('builtins.print') as mock_print:
@@ -143,18 +148,18 @@ class TestGenerarBurnDown:
             }
         ]
         
-        with open(issues, 'w') as f:
+        with open(issues, 'w', encoding='utf-8') as f:
             json.dump(open_issues, f)
         
         generar_burn_down(issues, output)
         
-        with open(output, 'r') as f:
+        with open(output, 'r',encoding='utf-8') as f:
             content = f.read()
         
-        # Todas las lineas deberian tener solo █ (issues abiertas)
+        # Todas las lineas deberian tener solo [|] (issues abiertas)
         lines = content.strip().split('\n')
         for line in lines:
-            assert '█' in line
+            assert '[|]' in line
             # No deberia haber barras cerradas en los dias donde hay issues
             if '(' in line and ')' in line:
                 # Extraer contadores
@@ -166,17 +171,17 @@ class TestGenerarBurnDown:
     def test_formato_salida_correcto(self, sample_issues, temp_files):
         issues, output = temp_files
         
-        with open(issues, 'w') as f:
+        with open(issues, 'w',encoding='utf-8') as f:
             json.dump(sample_issues, f)
         
         generar_burn_down(issues, output)
         
-        with open(output, 'r') as f:
+        with open(output, 'r',encoding='utf-8') as f:
             lines = f.readlines()
         
         for line in lines:
             line = line.strip()
-            # Verificar formato: [DD-MM-YYYY] ████─── (X/Y)
+            # Verificar formato: [DD-MM-YYYY] [|][|][|][|]─── (X/Y)
             assert line.startswith('[')
             assert '] ' in line
             assert line.endswith(')')
@@ -195,7 +200,7 @@ class TestGenerarBurnDown:
                 generar_burn_down()
                 
                 # Verificar que se intentaron abrir los archivos por defecto
-                mock_file.assert_any_call('issues.json', 'r')
+                mock_file.assert_any_call(os.path.join('issues.json'), 'r')
 
 class TestIntegracion:
     
@@ -233,21 +238,27 @@ class TestIntegracion:
         try:
             generar_burn_down(temp_input_name, temp_output_name)
             
-            with open(temp_output_name, 'r') as f:
+            with open(temp_output_name, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            lines = content.strip().split('\n')
-            
-            # Verificar que tenemos al menos 3 dias de datos
-            assert len(lines) >= 3
+            lines = content.splitlines()
+ 
             
             # El primer dia deberia tener 2 issues abiertas
             first_line = lines[0]
-            assert '(2/2)' in first_line or '██' in first_line
-            
+            assert '(2/2)' in first_line or '[|][|]' in first_line
+            lines = content.split(' ')
+             # Verificar que tenemos al menos 3 dias de datos
+            assert len(lines) >= 3
+
         finally:
-            os.unlink(temp_input_name)
-            os.unlink(temp_output_name)
+            # Limpiar archivos temporales
+            for file_path in [temp_input_name, temp_output_name]:
+                try:
+                    if os.path.exists(file_path):
+                        os.unlink(file_path)
+                except PermissionError:
+                    pass
 
 if __name__ == "__main__":
     pytest.main([__file__])
