@@ -13,6 +13,20 @@
 El **Proyecto 8 - Grupo 2**, está enfocado en desarrollar scripts personalizados para calcular metricas agiles como _burn-down_ y _lead time_  
 El avance se divide en 3 Sprints.
 
+## Flujo de Trabajo
+
+- **Ramas**: Cada issue se desarrollo en una rama `feature/*`, fusionada a `develop` tras revisar y aceptar un pull request.
+- **Commits**: Atomicos (<300 lineas), con mensajes en el formato `feat[#ID]: descripcion` o `docs[#ID]: descripcion`.
+- **Pull Requests**: Cuandos se quiere implementar un nuevo `feature|update|fix..` al proyecto, se realiza un PR hacia la rama `develop`. Es obligatorio que 2 colaboradores lo aprueben para que se proceda con el merge.
+- **Tablero Kanban**: Muestra el estado de los issues (`Backlog, Ready,In Progress, QA, ... `). También agrupa issues en Sprints (epics)
+
+## Documentación en video
+
+- Sprint1:
+  [Sprint 1 (8/06/2025) Grupo 2 Proyecto 8 ](https://www.youtube.com/watch?v=iJIAYbbfaYw)
+- Sprint2: [Sprint 2 (17/06/2025) Grupo 2 Proyecto 8 ](https://youtu.be/cEHDw_kIgWw)
+- Sprint3: [Sprint 3 (19/06/2025) Grupo 2 Proyecto 8 ](https://www.youtube.com/watch?v=V2qRnOWsgNE)
+
 ## Sprint 1
 
 El **Sprint 1**, ejecutado del 7 al 9 de junio de 2025, se compone de los siguientes issues:
@@ -22,10 +36,6 @@ El **Sprint 1**, ejecutado del 7 al 9 de junio de 2025, se compone de los siguie
 - [#3](#3-crear-script-generar_kanbansh-inicial-y-su-test) Un script que genere un tablero Kanban en md a partir de un json
 - [#4](#4-desarrollar-esqueleto-de-calcular_metricaspy) El esqueleto del script Python para metricas
 - [#5](#5-crear-datos-iniciales-en-issuesjson) Datos iniciales de los issues en JSON.
-
-## Demostracion en video
-
-[Sprint 1 (Dia 3: 8/06/2025) Grupo 2 Proyecto 8 ](https://www.youtube.com/watch?v=iJIAYbbfaYw)
 
 ## Issues del Sprint 1
 
@@ -74,31 +84,14 @@ El **Sprint 1**, ejecutado del 7 al 9 de junio de 2025, se compone de los siguie
 - **Responsable**: Janio
 - **Objetivo**: Poblar `issues.json` con los 5 issues del Sprint 1, asegurando compatibilidad con `generar_kanban.sh` y futuros calculos de metricas.
 
-## Distribución
-
-- **Junal**: Issues [#1](#1-inicializar-repositorio-y-estructura), [#4](#4-desarrollar-esqueleto-de-calcular_metricaspy).
-- **Janio**: Issues [#2](#2-implementar-hook-commit-msg), [#5](#5-crear-datos-iniciales-en-issuesjson).
-- **Andres**: [#3](#3-crear-script-generar_kanbansh-inicial-y-su-test).
-
-## Flujo de Trabajo
-
-- **Ramas**: Cada issue se desarrollo en una rama `feature/*`, fusionada a `develop` tras revisar y aceptar un pull request.
-- **Commits**: Atomicos (<200 lineas), con mensajes en el formato `feat[#ID]: descripcion` o `docs[#ID]: descripcion`.
-- **Pull Requests**: PRs #1, #2, #5 cerrados; #3, #4 abiertos, todos revisados por otro miembro del equipo.
-- **Tablero Kanban**: Generado por `generar_kanban.sh` en `docs/kanban.md`, refleja el estado de los issues.
-
 ## Sprint 2
 
-El **Sprint 2**, ejecutado del 11 al 15 de junio de 2025, se compone de los siguientes issues:
+El **Sprint 2**, ejecutado del 11 al 16 de junio de 2025, se compone de los siguientes issues:
 
 - [#6](#6-implementar-calculo-de-lead-time-en-calcular_metricaspy) Un script que calcule el Lead Time
 - [#7](#7-generar-gráfico-burn-down-en-ascii) Generar gráfico Burn-Down ASCII para visualizar el progreso de los issues
 - [#8](#8-mejorar-generar_kanbansh-para-transiciones-de-estado) Mostrar transiciones de estado de tareas
 - [#9](#9-agregar-pruebas-unitarias-para-calcular_metricaspy) Verificar la confiabilidad del script calcular_metricas.py
-
-## Demostracion en video
-
-[Sprint 1 (Dia x: x/06/2025) Grupo 2 Proyecto 8 ](link)
 
 ## Issues del sprint 2
 
@@ -142,27 +135,136 @@ El **Sprint 2**, ejecutado del 11 al 15 de junio de 2025, se compone de los sigu
 
 ## Sprint 3
 
+El **Sprint 3**, ejecutado del 16 al 19 de junio de 2025, se compone de los siguientes issues:
+
+-[#10](#10-implementar-deteccion-de-retrasos-en-notificar_retrasospy) Implementar detección de retrasos en notificar_retrasos.py -[#11](#11-agregar-pruebas-unitarias-para-notificar_retrasospy) Agregar pruebas unitarias para notificar_retrasos.py -[#12](#12-optimizar-calcular_metricaspy) Optimizar calcular_metricas.py -[#13](#13-optimizar-generar_kanbansh-para-rendimiento) Optimizar generar_kanban.sh para rendimiento -[#14](#14-agregar-pruebas-unitarias-para-generar_burn_downpy) Agregar pruebas unitarias para generar_burn_down.py
+
+## Issues del sprint 3
+
+### [10] Implementar deteccion de retrasos en notificar_retrasos.py
+
+- **Historia de Usuario**:
+  - **Como** desarrollador
+  - **Necesito** crear un script que detecte retrasos en los issues
+  - **Para que** notifique al equipo sobre tareas atrasadas
+  - **Responsable**: Junal
+  - **Objetivo**: Usa `issues.json` para comparar fechas de vencimiento con el estado actual,y en caso haya un retraso genera un `delay.txt`
+
+### [11] Agregar pruebas unitarias para notificar_retrasos.py
+
+- **Historia de Usuario**: -**Como** desarrollador
+  - **Necesito** escribir pruebas unitarias para `notificar_retrasos.py`
+  - **Para que** la deteccion de retrasos sea confiable
+- **Responsable**: Andres
+- **Objetivo**: Probar `notificar_retrasos.py` con al menos 4 escenarios.
+
+### [12] Optimizar calcular_metricas.py
+
+- **Historia de Usuario**:
+  - **Como** desarrollador
+  - **Necesito** optimizar `calcular_metricas.py` para reducir tiempos
+  - **Para que** se reduzcan tiempos
+- **Responsable**: Andres
+- **Objetivo**: Refactorizar `calcular_metricas.py` para reducir tiempo de parseo de los git logs y generación de `commits.csv` y `lead_time.csv`
+
+### [13] Optimizar generar_kanban.sh para rendimiento
+
+- **Historia de Usuario**:
+  - **Como** desarrollador
+  - **Necesito** configurar un repositorio con estructura de carpetas y archivos base
+  - **Para** que el equipo pueda desarrollar scripts de metricas agiles de forma organizada
+- **Responsable**: Junal
+- **Objetivo**: Establecer la arquitectura base del proyecto, creando directorios para scripts, codigo, metricas, informes, documentacion, y pruebas, junto con archivos de configuracion iniciales.
+
+### [14] Agregar pruebas unitarias para generar_burn_down.py
+
+- **Historia de Usuario**:
+  - **Como** desarrollador
+  - **Necesito** configurar un repositorio con estructura de carpetas y archivos base
+  - **Para** que el equipo pueda desarrollar scripts de metricas agiles de forma organizada
+- **Responsable**: Janio
+- **Objetivo**: Establecer la arquitectura base del proyecto, creando directorios para scripts, codigo, metricas, informes, documentacion, y pruebas, junto con archivos de configuracion iniciales.
+
 ## Ejecucion del Proyecto
 
-1. Instalar dependencias(requirements.txt)
+1. Clonar el repositorio del proyecto
+
+```bash
+  git clone < url-de-este-repo >
+```
+
+2. Se recomienda trabajar en un entorno virtual
+
+```bash
+  python3 -m venv venv
+```
+
+Activando el entorno
+
+```bash
+  source venv/bin/activate
+```
+
+    En caso se quiera desactivar
+
+```bash
+  deactivate
+```
+
+3. Instalar dependencias(requirements.txt)
+
+```bash
+  pip install -r requirements.txt
+```
+
 2. Generar el tablero Kanban:
    ```bash
    bash scripts/generar_kanban.sh
    ```
-3. Ejecutar tests:
+   Nota: No olvidar darle permisos a los scripts
+
+```bash
+chmod +x scripts/generar_kanban.sh test/test_generar_kanban.sh
+```
+
+3. Probar los scripts
+
+- Calcular métricas:
+  - _Lead Time_: Tiempo transcurrido entre el `open`y `closed`de un issue
+
+```bash
+python3 src/calcular_metricas.py
+```
+
+Archivos generados
+`metricas/commits.csv`y `metricas/lead_time.csv`
+
+- Generar burn down
+  - _Burn down_: Gráfica que nos permite observar el estado de los issues de acuerdo al día.
+
+```bash
+python3 src/generar_burn_down.py
+```
+
+Archivo generado
+`reports/burn_down.txt`
+
+- Notificar retrasos
+  - Si el `lead_time` de un issue excede un umbral establecido, se generará una notificación de retraso.
+
+```bash
+python3 src/notificar_retrasos.py
+```
+
+Archivo(s) generado(s)
+`reports/emails/issue_x_delay`
+
+4. Ejecutar tests:
+
    ```bash
    bash tests/test_generar_kanban.sh
    ```
-4. Parsear historial de Git:
+
    ```bash
-   python src/calcular_metricas.py
+   pytest --cov=src --cov-report=term-missing
    ```
-5. Inspeccionar resultados:
-   - `docs/kanban.md`: Tablero Kanban.
-   - `metricas/commits.csv`: Datos de commits.
-
-Nota: No olvidar darle permisos a los scripts
-
-```bash
- chmod +x scripts/generar_kanban.sh test/test_generar_kanban.sh
-```
