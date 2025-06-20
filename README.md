@@ -87,6 +87,61 @@ El **Sprint 1**, ejecutado del 7 al 9 de junio de 2025, se compone de los siguie
 - **Pull Requests**: PRs #1, #2, #5 cerrados; #3, #4 abiertos, todos revisados por otro miembro del equipo.
 - **Tablero Kanban**: Generado por `generar_kanban.sh` en `docs/kanban.md`, refleja el estado de los issues.
 
+## Sprint 2
+
+El **Sprint 2**, ejecutado del 11 al 15 de junio de 2025, se compone de los siguientes issues:
+
+- [#6](#6-implementar-calculo-de-lead-time-en-calcular_metricaspy) Un script que calcule el Lead Time
+- [#7](#7-generar-gráfico-burn-down-en-ascii) Generar gráfico Burn-Down ASCII para visualizar el progreso de los issues
+- [#8](#8-mejorar-generar_kanbansh-para-transiciones-de-estado) Mostrar transiciones de estado de tareas
+- [#9](#9-agregar-pruebas-unitarias-para-calcular_metricaspy) Verificar la confiabilidad del script calcular_metricas.py
+
+## Demostracion en video
+
+[Sprint 1 (Dia x: x/06/2025) Grupo 2 Proyecto 8 ](link)
+
+## Issues del sprint 2
+
+### [6] Implementar calculo de Lead Time en calcular_metricas.py
+
+- **Historia de Usuario**
+  - **Como** desarrollador
+  - **Necesito** extender `calcular_metricas.py` para calcular el _lead time_ de los issues
+  - **Para que** el dashboard agil pueda mostrar cuanto tiempo toma completar tareas
+  - **Responsable**: Junal
+  - **objetivo**: Usar `metricas/commits.csv` [#4](#4-desarrollar-esqueleto-de-calcular_metricaspy) y `issues.json [#5](#5-crear-datos-iniciales-en-issuesjson) para correlacionar fechas de creacion y finalizacion de issues
+
+### [7] Generar gráfico Burn-Down en ASCII
+
+- **Historia de Usuario**
+
+  - **Como** desarrollador
+  - **Necesito** crear un script que genere un gráfico _burn-down_ en formato ASCII
+  - **Para que** el equipo pueda visualizar el progreso del proyecto.
+  - **Responsable**: Janio
+  - **objetivo**: Usar `metricas/commits.csv`[#4](#4-desarrollar-esqueleto-de-calcular_metricaspy) y `issues.json`[#5](#5-crear-datos-iniciales-en-issuesjson) para contar tareas completadas por día.
+
+### [8] Mejorar generar_kanban.sh para transiciones de estado
+
+- **Historia de Usuario**
+
+  - **Como** desarrollador
+  - **Necesito** mejorar `generar_kanban.sh` [#3] para mostrar transiciones de estado de tareas
+  - **Para que** el dashboard refleje el flujo de trabajo del Sprint 2
+  - **Responsable**: Andres
+  - **objetivo**: Mejorar generar_kanban.sh [#3](#3-crear-script-generar_kanbansh-inicial-y-su-test) para que muestre estados de los issues.
+
+### [9] Agregar pruebas unitarias para calcular_metricas.py
+
+- **Historia de Usuario**
+  - **Como** desarrollador
+  - **Necesito** escribir pruebas unitarias para `calcular_metricas.py`
+  - **Para que** el codigo sea robusto y mantenible
+  - **Responsable**: Andres
+  - **objetivo**: Cubrir las pruebas de las funciones `registrar_git_log()`, `escribir_csv()`y la nueva `calcular_lead_time()`
+
+## Sprint 3
+
 ## Ejecucion del Proyecto
 
 1. Instalar dependencias(requirements.txt)
