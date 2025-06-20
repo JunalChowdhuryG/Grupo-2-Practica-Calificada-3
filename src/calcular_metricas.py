@@ -16,7 +16,8 @@ def registrar_git_log():
         primera_fecha = None
         for line in historial.stdout.splitlines():
             commit_hash, date, message = line.split('|', 2)
-            fecha_commit = datetime.fromisoformat(date.replace('Z', '+00:00'))
+            processed_date = re.sub(r'([+-]\d{2})(\d{2})$', r'\1:\2', date)
+            fecha_commit = datetime.fromisoformat(processed_date)
             if primera_fecha is None:
                 primera_fecha = fecha_commit
             dia_desde_inicio = (fecha_commit - primera_fecha).days
